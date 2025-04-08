@@ -1,0 +1,16 @@
+	"overrides": {
+		"prosemirror-collab": "1.2.2",
+		"prosemirror-commands": "1.1.4",
+		"prosemirror-dropcursor": "1.3.2",
+		"prosemirror-gapcursor": "1.1.5",
+		"prosemirror-history": "1.1.3",
+		"prosemirror-inputrules": "1.1.3",
+		"prosemirror-keymap": "1.1.4",
+		"prosemirror-model": "1.13.1",
+		"prosemirror-schema-list": "1.1.4",
+		"prosemirror-state": "1.3.3",
+		"prosemirror-tables": "1.1.1",
+		"prosemirror-transform": "1.2.8",
+		"prosemirror-utils": "0.9.6",
+		"prosemirror-view": "1.16.5"
+	}

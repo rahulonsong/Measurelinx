@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Status Update - <%= orderNumber %>
+    </title>
+    <style>
+        /* Styles for email content */
+        .email-container {
+            margin: 0 auto;
+            max-width: 600px;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.5;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .address__section {
+            background-color: #F4F4F4;
+            padding: 20px;
+            border-radius: 10px;
+            font-size: small;
+        }
+
+        .address__section hr {
+            border: none;
+            border-top: 1px solid #1F3F57;
+            height: 1px;
+            margin: 10px 0;
+        }
+
+        .address__section div {
+            color: #1F3F57;
+        }
+
+        .logo {
+            display: block;
+            margin: 0 auto;
+            max-width: 200px;
+            height: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="email-container">
+        <img class="logo" src="<%= process.env.BRAND_LOGO_IMAGE_URL %>" alt="Logo" />
+        <h1>Order Status Update</h1>
+        <p>Hello <%= user.firstName %>,</p>
+        <p>We wanted to let you know that the status of your order <strong>#<%= orderNumber %></strong> is <strong>
+                <%= orderStatus %>
+            </strong>!
+        </p>
+        <% if (orderStatus==='shipped' && trackingNumber) { %>
+            <p>Your tracking number is <strong>
+                    <%= trackingNumber %>
+                </strong>. You can use this tracking number to check the status of your shipment on the carrier's
+                website.</p>
+            <% } %>
+
+                <!-- Main Order Details -->
+                <div class="address__section">
+                    <h2>Order Details</h2>
+                    <hr />
+                    <p><strong>Order Number:</strong>
+                        <%= orderNumber %>
+                    </p>
+                    <p><strong>Order Date:</strong>
+                        <%= orderDate %>
+                    </p>
+                    <p><strong>Order Value:</strong>
+                        <%= orderCurrency %>
+                            <%= orderValue.toFixed(2) %>
+                    </p>
+                </div>
+
+                <!-- Shipping Address -->
+                <div class="address__section">
+                    <h2>Shipping Address</h2>
+                    <hr />
+                    <div>
+                        <p>
+                            <%= shippingAddress.addresseeFirst %>
+                                <%= shippingAddress.addresseeLast %>
+                        </p>
+                        <p>
+                            <%= shippingAddress.line1 %>
+                        </p>
+                        <% if (shippingAddress.line2) { %>
+                            <p>
+                                <%= shippingAddress.line2 %>
+                            </p>
+                            <% } %>
+                                <p>
+                                    <%= shippingAddress.stateProvince %>, <%= shippingAddress.postalCode %>
+                                </p>
+                                <p>
+                                    <%= shippingAddress.country %>
+                                </p>
+                                <p>
+                                    <%= shippingAddress.phoneNumber.countryCode %>-<%=
+                                            shippingAddress.phoneNumber.category==='Mobile' ? '(' +
+                                            shippingAddress.phoneNumber.mobileNumber.substring(0, 3) + ')-' +
+                                            shippingAddress.phoneNumber.mobileNumber.substring(3, 6) + '-' +
+                                            shippingAddress.phoneNumber.mobileNumber.substring(6, 10) :
+                                            shippingAddress.phoneNumber.areaCode + '-' + shippingAddress.localNumber %>
+                                </p>
+                                <% if (shippingAddress.landmark) { %>
+                                    <p>Landmark: <%= shippingAddress.landmark %>
+                                    </p>
+                                    <% } %>
+                    </div>
+                </div>
+
+                <!-- Billing Address -->
+                <div class="address__section">
+                    <h2>Billing Address</h2>
+                    <hr />
+                    <div>
+                        <p>
+                            <%= billingAddress.addresseeFirst %>
+                                <%= billingAddress.addresseeLast %>
+                        </p>
+                        <p>
+                            <%= billingAddress.line1 %>
+                        </p>
+                        <% if (billingAddress.line2) { %>
+                            <p>
+                                <%= billingAddress.line2 %>
+                            </p>
+                            <% } %>
+                                <p>
+                                    <%= billingAddress.stateProvince %>, <%= billingAddress.postalCode %>
+                                </p>
+                                <p>
+                                    <%= billingAddress.country %>
+                                </p>
+                                <p>
+                                    <%= billingAddress.phoneNumber.countryCode %>-<%=
+                                            billingAddress.phoneNumber.category==='Mobile' ? '(' +
+                                            billingAddress.phoneNumber.mobileNumber.substring(0, 3) + ')-' +
+                                            billingAddress.phoneNumber.mobileNumber.substring(3, 6) + '-' +
+                                            billingAddress.phoneNumber.mobileNumber.substring(6, 10) :
+                                            billingAddress.phoneNumber.areaCode + '-' + billingAddress.localNumber %>
+                                </p>
+                                <% if (billingAddress.landmark) { %>
+                                    <p>Landmark: <%= billingAddress.landmark %>
+                                    </p>
+                                    <% } %>
+                    </div>
+                </div>
+    </div>
+</body>
+
+</html>

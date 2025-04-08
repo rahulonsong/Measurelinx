@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        [<span>
+            Ref: <%= refNumber %>
+        </span>] Request Received from <%= customerName %>
+    </title>
+    <style>
+        /* Add your custom CSS styles here */
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .container {
+            margin: 20px auto;
+            max-width: 600px;
+            padding: 20px;
+            background-color: #f4f4f4;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            display: block;
+            margin: 0 auto;
+            max-width: 200px;
+            height: 50px;
+        }
+
+        h1 {
+            margin-top: 30px;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #444;
+            font-size: 24px;
+        }
+
+        p {
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #abe1e1;
+            color: rgb(5, 24, 25);
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin-top: 20px;
+
+        }
+
+
+        .btn:hover {
+            background-color: #83eac6;
+            cursor: pointer;
+        }
+
+        .btn__position {
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .message-section {
+            background-color: #F8F8F8;
+            border: 1px solid #E0E0E0;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .message-section h2 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .message-section p {
+            font-size: 16px;
+            line-height: 1.5;
+            margin-bottom: 0;
+        }
+
+        /* Added styles for new fields */
+        .info {
+            background-color: #fff;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .info p {
+            margin: 5px 0;
+            color: #555;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <img class="logo" src="<%= process.env.BRAND_LOGO_IMAGE_URL %>" alt="Logo" />
+        <h1>Hello,</h1>
+        <p>A new request has been received.</p>
+
+        <div class="info">
+            <p><strong>Customer Name:</strong>
+                <%= customerName %>
+            </p>
+            <p><strong>Email:</strong>
+                <%= email %>
+            </p>
+            <p><strong>Contact Number:</strong>
+                <%= contactNumber %>
+            </p>
+        </div>
+
+        <div class="message-section">
+            <h2>Message from <%= customerName %>:</h2>
+            <p>
+                <%= message %>
+            </p>
+        </div>
+
+        <div class="btn__position">
+            <a href="<%= url %>" class="btn">Visit Our Website</a>
+        </div>
+    </div>
+</body>
+
+
+</html>

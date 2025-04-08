@@ -1,0 +1,473 @@
+/* This is the main css with styling  that wqas originally in the App.vue file */
+
+.v-toolbar__title {
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+}
+
+.appFont1 {
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.appFont2 {
+    font-size: 14px;
+    font-weight: 500;
+    /* // font-family: Calibri, sans-serif; */
+}
+
+.appFont3 {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.customDecoration.v-text-field>.v-input__control>.v-input__slot:before {
+    border-style: none;
+}
+
+.customDecoration.v-text-field>.v-input__control>.v-input__slot:after {
+    border-style: none;
+}
+
+.spec-Value__width-restrict {
+    max-width: 80px;
+}
+
+#myBtn {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Fixed/sticky position */
+    bottom: 20px;
+    /* Place the button at the bottom of the page */
+    right: 100px;
+    /* Place the button 30px from the right */
+    z-index: 99;
+    /* Make sure it does not overlap */
+    color: rgb(220, 97, 20);
+    /* Text color */
+    cursor: pointer;
+    /* Add a mouse pointer on hover */
+    padding: 0px;
+    /* No padding */
+    margin: 0px;
+    /* No margin */
+}
+
+#myBtn:hover {
+    background-color: #555;
+    /* Add a dark-grey background on hover */
+}
+
+#myWhatsappBtn {
+    position: fixed;
+    /* Fixed/sticky position */
+    bottom: 100px;
+    /* Place the button at the bottom of the page */
+    right: 30px;
+    /* Place the button 30px from the right */
+    z-index: 99;
+    /* Make sure it does not overlap */
+    /* Text color */
+    cursor: pointer;
+    /* Add a mouse pointer on hover */
+    padding: 0px;
+    /* No padding */
+    margin: 0px;
+    /* No margin */
+    font-weight: 1200;
+}
+
+#myWhatsappBtn:hover {
+    background-color: #555;
+    /* Add a dark-grey background on hover */
+}
+
+.app--background {
+    background-color: #575656;
+}
+
+.v-application--wrap {
+    padding: 0;
+}
+
+.statusOverlayText {
+    /* font-size: 30px; */
+    /* background: -webkit-linear-gradient(rgb(48, 11, 196), rgb(28, 41, 119)); */
+    /* position:fixed; */
+    margin: auto;
+    /* width: 50%; */
+    /* border: 3px solid green; */
+    opacity: 0.8;
+    border-radius: 15px;
+    /* top:400px; */
+    /* background-clip: text; */
+    padding: 10px 20px 10px;
+    /* -webkit-background-clip: text; */
+    /* -webkit-text-fill-color: transparent; */
+}
+
+.dialogTitleBackground {
+    background: #6f0a06;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right,
+            #640508,
+            #b41914);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right,
+            #640508,
+            #b41914);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.tipsDialogTitleBackground {
+    background: #0f0c29;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right,
+            #24243e,
+            #302b63,
+            #0f0c29);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right,
+            #24243e,
+            #302b63,
+            #0f0c29);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+/* html::-webkit-scrollbar {
+  display: none;
+} */
+
+/* Hide scrollbar for IE, Edge and Firefox */
+/* html {
+  -ms-overflow-style: none; 
+  scrollbar-width: 0.5em; 
+} */
+/* .page {
+    position: fixed;
+    width:inherit;
+  } */
+html body {
+    overflow-x: hidden;
+}
+
+.input-value__number input[type='number'] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+.input-value__number input::-webkit-outer-spin-button,
+.input-value__number input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+.inputValue input[type='number'] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+.item__container .item__content {
+    position: absolute;
+    /* Position the background text */
+    bottom: 0;
+    /* At the bottom.Use top:0 to append it to the top */
+    background: rgb(0, 0, 0);
+    /* Fallback color */
+    background: rgba(0, 0, 0, 0.5);
+    /* Black background with 0.5 opacity */
+    /* // color: #f1f1f1; Grey text */
+    width: 100%;
+    /* Full width */
+    padding: 10px;
+    /* Some padding */
+}
+
+.item__container .item__content--cart {
+    position: absolute;
+    /* Position the background text */
+    top: 0;
+    /* At the bottom.Use top:0 to append it to the top */
+    background: rgb(0, 0, 0);
+    /* Fallback color */
+    background: rgba(0, 0, 0, 0.5);
+    /* Black background with 0.5 opacity */
+    /* // color: #f1f1f1; Grey text */
+    width: 100%;
+    /* Full width */
+    padding-top: 20px;
+    /* Some padding */
+    padding-bottom: 20px;
+    /* Some padding */
+}
+
+.item__container .item__content--cart__small {
+    position: absolute;
+    /* Position the background text */
+    top: 0;
+    /* At the bottom.Use top:0 to append it to the top */
+    background: rgb(0, 0, 0);
+    /* Fallback color */
+    background: rgba(0, 0, 0, 0.2);
+    /* Black background with 0.5 opacity */
+    /* // color: #f1f1f1; Grey text */
+    width: 100%;
+    /* Full width */
+    padding-top: 2px;
+    /* Some padding */
+    padding-bottom: 2px;
+    /* Some padding */
+}
+
+/* // .item__container:hover {
+//   box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.2);
+// }
+
+// .item__cart-icon {
+//   display: none;
+// }
+
+// .item__container:hover .item__cart-icon {
+//   display: block;
+// } */
+.item__deal {
+    top: 0;
+    /* At the top.Use top:0 to append it to the top */
+    position: absolute;
+    /* Position the background text */
+    right: 0;
+}
+
+.item__cart-icon {
+    top: 0;
+    /* At the top.Use top:0 to append it to the top */
+    position: absolute;
+    /* Position the background text */
+    left: 0;
+}
+
+/* // .item__cart-button :hover {
+//   color: red;
+// }
+// .item__favorite-button :hover {
+//   color: red;
+// } */
+/* Styles for CKEditor */
+button .ck-icon {
+    font-size: 0.63em !important;
+}
+
+.ck-editor__rich-text {
+    line-height: normal;
+}
+
+button .ck-button__label {
+    font-size: 12px !important;
+}
+
+.ck.ck-dropdown.ck-font-size-dropdown div ul.ck.ck-reset.ck-list {
+    max-width: 60px !important;
+    max-height: 500px !important;
+}
+
+.ck-list .ck-list__item {
+    max-width: 60px !important;
+}
+
+.ck.ck-reset.ck-dropdown__panel.ck-dropdown__panel_se.ck-dropdown__panel-visible {
+    max-height: 300px !important;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+/* .ck-alignment-dropdown.ck-dropdown__panel.ck-toolbar__vertical.ck-toolbar__items {
+  max-width: 150px !important;
+} */
+.ck.ck-toolbar.ck-toolbar_vertical>.ck-toolbar__items>.ck {
+    max-width: 30px !important;
+}
+
+.button-style {
+    color: white;
+    background-color: #007BFF;
+    /* Example blue */
+    padding: 10px 15px;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    margin: 5px;
+    display: inline-block;
+    text-decoration: none;
+    /* if it's a link */
+}
+
+.v-html__margin {
+    overflow: auto;
+}
+
+.v-html__margin figure table tbody tr td {
+    border: #4f4f53 thin solid;
+    padding-right: 10px;
+    padding-left: 10px;
+    color: none !important;
+}
+
+/* // .table table tbody tr td {
+//   color: none !important;
+// } */
+
+.v-html__margin figure table {
+    border-collapse: collapse;
+    float: left;
+}
+
+table.ck-table-resized {
+    border-collapse: collapse !important;
+}
+
+.v-html__margin div div figure img {
+    width: 100%;
+    height: 100px;
+}
+
+.v-html__margin div div figure {
+    text-align: inherit;
+    width: 50%;
+    margin: 0 auto;
+}
+
+.html-text__justify {
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+.app__button {
+    opacity: 1;
+}
+
+.app__button:hover {
+    border-color: #302b63;
+    color: rgb(137, 40, 5);
+}
+
+.display__resource-image {
+    border-radius: 15px;
+}
+
+.postal-code__search .v-text-field .v-input__control .v-input__slot {
+    min-height: auto !important;
+    display: flex !important;
+    height: 30px;
+    margin-top: 5px;
+    margin-left: 0;
+    padding-left: 5px;
+}
+
+.postal-code__search .v-text-field .v-input__control .v-input__slot input {
+    margin-top: 0px;
+}
+
+.postal-code__search .v-text-field {
+    border-radius: 0;
+}
+
+.postal-code__search-button {
+    border-radius: 0;
+    max-height: 30px;
+    box-shadow: 0 0;
+}
+
+.postal-code__search .v-text-field .v-input__append-inner .v-input__icon .v-icon {
+    margin-bottom: 10px;
+}
+
+.navigation__resource--page {
+    cursor: pointer;
+}
+
+.navigation__disabled {
+    cursor: default;
+}
+
+.v-toolbar__content {
+    margin: 0;
+}
+
+.toolbar--title .v-toolbar__content {
+    padding: 0;
+}
+
+df-messenger {
+    --df-messenger-bot-message: #0c3a74;
+    --df-messenger-button-titlebar-color: #830b0b;
+    --df-messenger-chat-background-color: #fafafa;
+    --df-messenger-font-color: white;
+    --df-messenger-send-icon: #c5cbdf;
+    --df-messenger-user-message: #479b3d;
+}
+/* Item creator page */
+.circle {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+:root {
+    --app-theme-font-color: black;
+    /* Default color */
+}
+
+p {
+    color: var(--app-theme-font-color);
+}
+
+.progressing__loader {
+    position: fixed;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+
+    font-size: 20px;
+    padding: 1px;
+    z-index: 100;
+}
+
+
+/* WebKit browsers */
+input::-webkit-input-placeholder {
+    color: red;
+}
+
+/* Mozilla Firefox 4 to 18 */
+input:-moz-placeholder {
+    color: red;
+}
+
+/* Mozilla Firefox 19+ */
+input::-moz-placeholder {
+    color: red;
+}
+
+/* Internet Explorer 10-11 */
+input:-ms-input-placeholder {
+    color: red;
+}
+
+/* Standard */
+input::placeholder {
+    color: red;
+}
+
+/* Chat widget custom styles */
+.n8n-chat-widget .chat-container {
+  height: 500px !important; /* Increased from 450px to 500px */
+}
+
+.n8n-chat-widget .chat-toggle {
+  bottom: 30px; /* Adjust position if needed */
+}

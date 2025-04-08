@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Failed - Order <%= orderNumber %>
+    </title>
+    <style>
+        /* Styles for email content */
+        .email-container {
+            margin: 0 auto;
+            max-width: 600px;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.5;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #d9534f;
+        }
+
+        h2 {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            display: block;
+            margin: 0 auto;
+            max-width: 200px;
+            height: 50px;
+        }
+
+        .alert-box {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .next-steps {
+            background-color: #F4F4F4;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .next-steps h3 {
+            color: #1F3F57;
+            margin-top: 0;
+        }
+
+        .next-steps ul {
+            padding-left: 20px;
+        }
+
+        .amount-details {
+            background-color: #F4F4F4;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .amount-details p {
+            margin: 5px 0;
+        }
+
+        .amount-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+
+        .support-info {
+            margin-top: 30px;
+            border-top: 1px solid #ddd;
+            padding-top: 20px;
+        }
+
+        .button {
+            display: inline-block;
+            background-color: #1F3F57;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="email-container">
+        <img class="logo" src="<%= process.env.BRAND_LOGO_IMAGE_URL %>" alt="Logo" />
+        <h1>Payment Failed</h1>
+        <div class="alert-box">
+            <p>We were unable to process your payment for order #<%= orderNumber %>.</p>
+        </div>
+        <p>Hello <%= firstName %>,</p>
+        <p>Unfortunately, your recent payment attempt for order #<%= orderNumber %> could not be completed.</p>
+
+        <div class="amount-details">
+            <h3>Order Details</h3>
+            <div class="amount-row">
+                <span>Order Number:</span>
+                <span><strong>
+                        <%= orderNumber %>
+                    </strong></span>
+            </div>
+            <div class="amount-row">
+                <span>Amount:</span>
+                <span><strong>
+                        <%= orderCurrencySymbol %>
+                            <%= attemptedAmount %>
+                    </strong></span>
+            </div>
+            <div class="amount-row">
+                <span>Failure Reason:</span>
+                <span><strong>
+                        <%= failureReason %>
+                    </strong></span>
+            </div>
+        </div>
+
+        <div class="next-steps">
+            <h3>What to do next:</h3>
+            <ul>
+                <li>Check that your payment details are correct</li>
+                <li>Ensure your card has sufficient funds</li>
+                <li>Try using a different payment method</li>
+                <li>If the problem persists, contact your bank</li>
+            </ul>
+            <p>You can complete your purchase by visiting your account and trying again.</p>
+            <a href="<%= process.env.BRAND_WEBSITE %>/user/orders" class="button">Go to My Orders</a>
+        </div>
+
+        <div class="support-info">
+            <p>If you need any assistance, please don't hesitate to contact our customer support team at:</p>
+            <p><a href="mailto:<%= process.env.SUPPORT_EMAIL %>">
+                    <%= process.env.SUPPORT_EMAIL %>
+                </a></p>
+            <p>Thank you for your patience.</p>
+            <p><strong>
+                    <%= process.env.BRAND_NAME %> Team
+                </strong></p>
+        </div>
+    </div>
+</body>
+
+</html>

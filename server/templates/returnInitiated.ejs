@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Return Process Initiated - <%= orderNumber %>
+    </title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        .header {
+            background-color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .logo {
+            display: block;
+            margin: 0 auto;
+            max-width: 200px;
+            height: 50px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .order-info {
+            margin-bottom: 30px;
+        }
+
+        .item-details {
+            margin-bottom: 20px;
+        }
+
+        .item-row {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #eee;
+            padding: 10px 0;
+        }
+
+        .item-name {
+            flex: 2;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+
+        .item-quantity {
+            flex: 1;
+            text-align: center;
+            margin-right: 15px;
+        }
+
+        .item-price {
+            flex: 1;
+            text-align: right;
+        }
+
+        .item-reason {
+            margin-top: 5px;
+            color: #666;
+        }
+
+        .total-section {
+            margin-top: 20px;
+            padding-top: 10px;
+            border-top: 2px solid #333;
+            font-weight: bold;
+        }
+
+        .footer {
+            margin-top: 30px;
+            color: #777;
+            font-size: 0.9em;
+            text-align: center;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+
+        .button {
+            display: inline-block;
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        .links-section {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <% if (process.env.BRAND_LOGO_IMAGE_URL) { %>
+            <img src="<%= process.env.BRAND_LOGO_IMAGE_URL %>" alt="<%= process.env.BRAND_NAME || 'Store' %> Logo"
+                class="logo">
+            <% } else { %>
+                <h1>
+                    <%= process.env.BRAND_NAME || 'Store' %>
+                </h1>
+                <% } %>
+    </div>
+
+    <div class="container">
+        <p>Hello <%= userFirstName ? userFirstName : '' %>,</p>
+
+        <p>We have received your return request for order #<%= orderNumber %>. A return shipping label has been
+                generated for your convenience.</p>
+
+        <div class="order-info">
+            <h2>Return Details</h2>
+            <p>Date: <%= returnInitiatedDate %>
+            </p>
+            <p>Order: #<%= orderNumber %>
+            </p>
+        </div>
+
+        <div class="item-details">
+            <h3>Items Being Returned</h3>
+
+            <% for(let i=0; i<returnItems.length; i++) { const item=returnItems[i]; %>
+                <div class="item-row">
+                    <div class="item-name">
+                        <%= item.name %>
+                    </div>
+                    <div class="item-quantity">Qty: <%= item.quantity %>
+                    </div>
+                    <div class="item-price">
+                        <% if (typeof item.refundAmount==='string' && item.refundAmount.includes(' ')) { %>
+                            <%= item.refundAmount %>
+                        <% } else { %>
+                            <%= orderCurrency.toUpperCase() %>&nbsp;<%= item.refundAmount %>
+                        <% } %>
+                    </div>
+                </div>
+                <div class="item-reason">
+                    Reason: <%= item.reason %>
+                        <% if (item.comment) { %>
+                            <br>Comment: <%= item.comment %>
+                                <% } %>
+                </div>
+                <% } %>
+
+                    <div class="total-section">
+                        <table style="width:100%;border-collapse:collapse">
+                            <tr>
+                                <td style="font-weight:bold">Total Refund Amount:</td>
+                                <td style="text-align:right;font-weight:bold">
+                                    <%= orderCurrency.toUpperCase() %>&nbsp;<%= totalRefundAmount %>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+        </div>
+
+        <p>Please use the attached return shipping label to send back your items.</p>
+
+        <div class="links-section">
+            <a href="<%= returnLabelUrl %>" class="button" download>Download Return Label</a>
+        </div>
+
+        <div class="footer">
+            <p>Thank you for shopping with <%= process.env.COMPANY_NAME || process.env.BRAND_NAME || ' us' %>. If you
+                            have any questions, please contact our customer service team.</p>
+                            <p>&copy; <%= new Date().getFullYear() %>
+                                    <%= process.env.BUSINESS_NAME || process.env.BRAND_NAME || 'All rights reserved' %>
+                            </p>
+                    </div>
+                </div>
+</body>
+
+</html>

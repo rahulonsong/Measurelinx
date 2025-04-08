@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation - <%= orderNumber %>
+    </title>
+    <style>
+        /* Styles for email content */
+        .email-container {
+            margin: 0 auto;
+            max-width: 600px;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.5;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            margin-bottom: 20px;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .address,
+        .payment,
+        .thankyou {
+            margin-top: 20px;
+        }
+
+        .payment {
+            text-align: right;
+            font-size: 18px;
+        }
+
+        .thankyou {
+            font-size: 20px;
+            font-style: italic;
+        }
+
+        .address__section {
+            background-color: #F4F4F4;
+            padding: 20px;
+            border-radius: 10px;
+            font-size: small;
+        }
+
+        .address__section hr {
+            border: none;
+            border-top: 1px solid #1F3F57;
+            height: 1px;
+            margin: 10px 0;
+        }
+
+        .address__section div {
+            color: #1F3F57;
+        }
+
+        .logo {
+            display: block;
+            margin: 0 auto;
+            max-width: 200px;
+            height: 50px;
+        }
+
+        .item-image {
+            height: 100px;
+            width: 100px;
+            object-fit: contain;
+            /* Keeps the aspect ratio */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="email-container">
+        <img class="logo" src="<%= process.env.BRAND_LOGO_IMAGE_URL %>" alt="Logo" />
+        <h1>Order Confirmation</h1>
+        <p>Hello <%= userFirstName %>,</p>
+        <p>Thank you for your order with our store. Your order number is <%= orderNumber %>.</p>
+        <h2>Items Ordered</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Product Details</th>
+                    <th>Unit Price </th>
+                    <th>Qty</th>
+                    <th>Extended Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% items.forEach(function(itemEl) { %>
+                    <tr>
+                        <td><img src="<%= itemEl.item.defaultImage %>" alt="<%= itemEl.item.name %>" class="item-image">
+                        </td>
+                        <td>
+                            <%= itemEl.item.name %><br><small>SKU: <%= itemEl.item.sku %></small>
+                        </td>
+                        <td>
+                            <span style="white-space: nowrap;">
+                                <%= orderCurrencySymbol %>
+                                    <% if (orderCurrency.toLowerCase()==="inr" ) { %>
+                                        <%= (itemEl.item.price && itemEl.item.price.value && itemEl.item.discount>= 0 &&
+                                            itemEl.item.tax >= 0) ?
+                                            parseFloat(Math.trunc(itemEl.item.price.value * (1 + itemEl.item.tax / 100)
+                                            * (1 - itemEl.item.discount / 100) * 100) / 100).toFixed(2)
+                                            : '0.00' %>
+                                            <% } else { %>
+                                                <%= (itemEl.item.price && itemEl.item.price.value &&
+                                                    itemEl.item.discount>= 0) ?
+                                                    (Math.round(itemEl.item.price.value * (1 - itemEl.item.discount /
+                                                    100) * 100) / 100).toFixed(2)
+                                                    : '0.00' %>
+                                                    <% } %>
+                            </span>
+                        </td>
+                        <td>
+                            <%= itemEl.quantity %>
+                        </td>
+                        <td>
+                            <span style="white-space: nowrap;">
+                                <%= orderCurrencySymbol %>
+                                    <% if (orderCurrency.toLowerCase()==="inr" ) { %>
+                                        <%= (itemEl.item.price && itemEl.item.price.value && itemEl.item.discount>= 0 &&
+                                            itemEl.item.tax >= 0) ?
+                                            (parseFloat(Math.trunc(itemEl.item.price.value * (1 + itemEl.item.tax / 100)
+                                            * (1 - itemEl.item.discount / 100) * 100) / 100) *
+                                            itemEl.quantity).toFixed(2)
+                                            : '0.00' %>
+                                            <% } else { %>
+                                                <%= (itemEl.item.price && itemEl.item.price.value &&
+                                                    itemEl.item.discount>= 0) ?
+                                                    (Math.round(itemEl.item.price.value * (1 - itemEl.item.discount /
+                                                    100) * 100) / 100 * itemEl.quantity).toFixed(2)
+                                                    : '0.00' %>
+                                                    <% } %>
+                            </span>
+                        </td>
+                    </tr>
+                    <% }); %>
+            </tbody>
+            <tfoot style="font-family: Arial, sans-serif;">
+                <tr>
+                    <td colspan="4">Subtotal:</td>
+                    <td>
+                        <span style="white-space: nowrap;">
+                            <%= orderCurrencySymbol %>
+                                <%= subTotal.toFixed(2) %>
+                        </span>
+                    </td>
+                </tr>
+                <% if (discount> 0) { %>
+                    <tr>
+                        <td colspan="4">Item Discounts:</td>
+                        <td>
+                            <span style="white-space: nowrap;">
+                                <%= orderCurrencySymbol %>
+                                    <%= discount.toFixed(2) %>
+                            </span>
+                        </td>
+                    </tr>
+                    <% } %>
+                        <% if (promotion.value> 0) { %>
+                            <tr>
+                                <td colspan="4">Promotion:</td>
+                                <td>
+                                    <span style="white-space: nowrap;">
+                                        <%= promotion.isPercentage ? promotion.value + '%' : orderCurrencySymbol +
+                                            promotion.value.toFixed(2) %>
+                                    </span>
+                                </td>
+                            </tr>
+                            <% } %>
+                                <% if (discount> 0 || promotion.value > 0) { %>
+                                    <tr style="background-color: #f8f8f8;">
+                                        <td colspan="4"><strong>Total Savings:</strong></td>
+                                        <td>
+                                            <span style="white-space: nowrap;"><strong>
+                                                    <%= orderCurrencySymbol %>
+                                                        <%= (discount + (promotion.isPercentage ? (subTotal *
+                                                            promotion.value / 100) : promotion.value)).toFixed(2) %>
+                                                </strong></span>
+                                        </td>
+                                    </tr>
+                                    <% } %>
+                                        <% if (orderCurrency !=="INR" ) { %>
+                                            <tr>
+                                                <td colspan="4">Tax:</td>
+                                                <td>
+                                                    <span style="white-space: nowrap;">
+                                                        <%= orderCurrencySymbol %>
+                                                            <%= (subTotal * tax / 100).toFixed(2) %>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                            <% } %>
+                                                <tr>
+                                                    <td colspan="4">Delivery Fee:</td>
+                                                    <td>
+                                                        <span style="white-space: nowrap;">
+                                                            <%= deliveryFee> 0 ? orderCurrencySymbol +
+                                                                deliveryFee.toFixed(2) :
+                                                                'Free' %>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="4"><strong>Total:</strong></td>
+                                                    <td>
+                                                        <span style="white-space: nowrap;"><strong>
+                                                                <%= orderCurrencySymbol %>
+                                                                    <%= orderValue.toFixed(2) %>
+                                                            </strong></span>
+                                                    </td>
+                                                </tr>
+            </tfoot>
+
+        </table>
+        <!-- Shipping Address -->
+        <div class="address__section">
+            <h2>Shipping Address</h2>
+            <hr />
+            <div>
+                <p>
+                    <%= shippingAddress.addresseeFirst %>
+                        <%= shippingAddress.addresseeLast %>
+                </p>
+                <p>
+                    <%= shippingAddress.line1 %>
+                </p>
+                <% if (shippingAddress.line2) { %>
+                    <p>
+                        <%= shippingAddress.line2 %>
+                    </p>
+                    <% } %>
+                        <p>
+                            <%= shippingAddress.stateProvince %>, <%= shippingAddress.postalCode %>
+                        </p>
+                        <p>
+                            <%= shippingAddress.country %>
+                        </p>
+                        <p>
+                            <%= shippingAddress.phoneNumber.countryCode %>-<%=
+                                    shippingAddress.phoneNumber.category==='Mobile' ? '('
+                                    +shippingAddress.phoneNumber.mobileNumber.substring(0,3)+')-'+shippingAddress.phoneNumber.mobileNumber.substring(3,6)+'-'+shippingAddress.phoneNumber.mobileNumber.substring(6,10):
+                                    shippingAddress.phoneNumber.areaCode + '-' +shippingAddress.localNumber %>
+                        </p>
+                        <% if (shippingAddress.landmark) { %>
+                            <p>Landmark: <%= shippingAddress.landmark %>
+                            </p>
+                            <% } %>
+            </div>
+        </div>
+        <!-- Billing Address -->
+        <div class="address__section">
+            <h2>Billing Address</h2>
+            <hr />
+            <div>
+                <p>
+                    <%= billingAddress.addresseeFirst %>
+                        <%= billingAddress.addresseeLast %>
+                </p>
+                <p>
+                    <%= billingAddress.line1 %>
+                </p>
+                <% if (billingAddress.line2) { %>
+                    <p>
+                        <%= billingAddress.line2 %>,
+                    </p>
+                    <% } %>
+                        <p>
+                            <%= billingAddress.stateProvince %>, <%= billingAddress.postalCode %>
+                        </p>
+                        <p>
+                            <%= billingAddress.country %>
+                        </p>
+                        <p>
+                            <%= billingAddress.phoneNumber.countryCode %>-<%=
+                                    billingAddress.phoneNumber.category==='Mobile' ? '('
+                                    +billingAddress.phoneNumber.mobileNumber.substring(0,3)+')-'+billingAddress.phoneNumber.mobileNumber.substring(3,6)+'-'+billingAddress.phoneNumber.mobileNumber.substring(6,10):
+                                    billingAddress.phoneNumber.areaCode + '-' +billingAddress.localNumber %>
+                        </p>
+                        <% if (billingAddress.landmark) { %>
+                            <p>Landmark: <%= billingAddress.landmark %>
+                            </p>
+                            <% } %>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
